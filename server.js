@@ -93,7 +93,7 @@ const generateUsername = async (email) => {
     return username
 }
 
-server.get("/get-upload-url", (req, res) => {
+server.get("/api/get-upload-url", (req, res) => {
     generateUploadURL()
     .then(url => res.status(200).json({ uploadURL: url}))
     .catch(err => {
@@ -102,7 +102,7 @@ server.get("/get-upload-url", (req, res) => {
     })
 })
 
-server.post("/signup", (req, res) => {
+server.post("/api/signup", (req, res) => {
     let { fullname, email, password } = req.body
 
     // Data validation
@@ -142,7 +142,7 @@ server.post("/signup", (req, res) => {
     })
 })
 
-server.post("/signin", (req, res) => {
+server.post("/api/signin", (req, res) => {
     let { email, password } = req.body
 
     User.findOne({ "personal_info.email": email })
@@ -173,7 +173,7 @@ server.post("/signin", (req, res) => {
     })
 })
 
-server.post("/google-auth", async (req, res) => {
+server.post("/api/google-auth", async (req, res) => {
     let { access_token } = req.body
 
     getAuth()
@@ -223,7 +223,7 @@ server.post("/google-auth", async (req, res) => {
     })
 })
 
-server.post("/change-password", verifyJWT, (req, res) => {
+server.post("/api/change-password", verifyJWT, (req, res) => {
 
     let user_id = req.user
 
@@ -268,7 +268,7 @@ server.post("/change-password", verifyJWT, (req, res) => {
 
 })
 
-server.post("/latest-blog", (req, res) => {
+server.post("/api/latest-blog", (req, res) => {
 
     let maxLimit = 5
     let { page } = req.body
@@ -287,7 +287,7 @@ server.post("/latest-blog", (req, res) => {
     })
 })
 
-server.post("/all-latest-blogs-count", (req, res) => {
+server.post("/api/all-latest-blogs-count", (req, res) => {
 
     Blog.countDocuments({ draft: false })
     .then(count => {
@@ -298,7 +298,7 @@ server.post("/all-latest-blogs-count", (req, res) => {
     })
 })
 
-server.get("/trending-blog", (req, res) => {
+server.get("/api/trending-blog", (req, res) => {
 
     Blog.find({ draft: false })
     .populate("author", "personal_info.fullname personal_info.username personal_info.profile_img -_id")
@@ -313,7 +313,7 @@ server.get("/trending-blog", (req, res) => {
     })
 })
 
-server.post("/search-blog", (req, res) => {
+server.post("/api/search-blog", (req, res) => {
 
     let { tag, page, query, author, limit, eliminate_blog } = req.body
     let findQuery
@@ -342,7 +342,7 @@ server.post("/search-blog", (req, res) => {
 
 })
 
-server.post("/search-blogs-count", (req, res) => {
+server.post("/api/search-blogs-count", (req, res) => {
     let { tag, query, author } = req.body
 
     let findQuery
@@ -365,7 +365,7 @@ server.post("/search-blogs-count", (req, res) => {
     })
 })
 
-server.post("/search-users", (req, res) => {
+server.post("/api/search-users", (req, res) => {
 
     let { query } = req.body
 
@@ -380,7 +380,7 @@ server.post("/search-users", (req, res) => {
     })
 })
 
-server.post("/get-profile", (req, res) => {
+server.post("/api/get-profile", (req, res) => {
 
     let { username } = req.body
 
@@ -396,7 +396,7 @@ server.post("/get-profile", (req, res) => {
 
 })
 
-server.post("/update-profile-img", verifyJWT, (req, res) => {
+server.post("/api/update-profile-img", verifyJWT, (req, res) => {
 
     let { url } = req.body
 
@@ -409,7 +409,7 @@ server.post("/update-profile-img", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/update-profile", verifyJWT, (req, res) => {
+server.post("/api/update-profile", verifyJWT, (req, res) => {
     let { username, bio, social_links } = req.body
 
     let bioLimit = 150
@@ -459,7 +459,7 @@ server.post("/update-profile", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/create-blog", verifyJWT, async (req, res) => {
+server.post("/api/create-blog", verifyJWT, async (req, res) => {
 
     const { nanoid } = (await import("nanoid"))
 
@@ -523,7 +523,7 @@ server.post("/create-blog", verifyJWT, async (req, res) => {
 
 })
 
-server.post("/get-blog", (req, res) => {
+server.post("/api/get-blog", (req, res) => {
 
     let { blog_id, draft, mode } = req.body
 
@@ -551,7 +551,7 @@ server.post("/get-blog", (req, res) => {
 
 })
 
-server.post("/like-blog", verifyJWT, (req, res) => {
+server.post("/api/like-blog", verifyJWT, (req, res) => {
 
     let user_id = req.user
 
@@ -583,7 +583,7 @@ server.post("/like-blog", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/isLiked-by-user", verifyJWT, (req, res) => {
+server.post("/api/isLiked-by-user", verifyJWT, (req, res) => {
     let user_id = req.user
 
     let { _id } = req.body
@@ -598,7 +598,7 @@ server.post("/isLiked-by-user", verifyJWT, (req, res) => {
 
 })
 
-server.post("/add-comment", verifyJWT, (req, res) => {
+server.post("/api/add-comment", verifyJWT, (req, res) => {
     let user_id = req.user
 
     let { _id, comment, blog_author, replying_to, notification_id } = req.body
@@ -652,7 +652,7 @@ server.post("/add-comment", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/get-blog-comments", (req, res) => {
+server.post("/api/get-blog-comments", (req, res) => {
     let { blog_id, skip } = req.body
 
     let maxLimit = 5
@@ -673,7 +673,7 @@ server.post("/get-blog-comments", (req, res) => {
     })
 })
 
-server.post("/get-replies", (req, res) => {
+server.post("/api/get-replies", (req, res) => {
 
     let { _id, skip } = req.body
 
@@ -731,7 +731,7 @@ const deleteComments = (_id) => {
     })
 }
 
-server.post("/delete-comment", verifyJWT, (req, res) => {
+server.post("/api/delete-comment", verifyJWT, (req, res) => {
 
     let user_id = req.user
 
@@ -749,7 +749,7 @@ server.post("/delete-comment", verifyJWT, (req, res) => {
     })
 })
 
-server.get("/new-notification", verifyJWT, (req, res) => {
+server.get("/api/new-notification", verifyJWT, (req, res) => {
 
     let user_id = req.user
 
@@ -767,7 +767,7 @@ server.get("/new-notification", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/notifications", verifyJWT, (req, res) => {
+server.post("/api/notifications", verifyJWT, (req, res) => {
 
     let user_id = req.user
     let { page, filter, deletedDocCount } = req.body
@@ -808,7 +808,7 @@ server.post("/notifications", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/all-notifications-count", verifyJWT, (req, res) => {
+server.post("/api/all-notifications-count", verifyJWT, (req, res) => {
 
     let user_id = req.user
 
@@ -830,7 +830,7 @@ server.post("/all-notifications-count", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/user-written-blogs", verifyJWT, (req, res) => {
+server.post("/api/user-written-blogs", verifyJWT, (req, res) => {
     let user_id = req.user
 
     let { page, draft, query, deletedDocCount } = req.body
@@ -855,7 +855,7 @@ server.post("/user-written-blogs", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/user-written-blogs-count", verifyJWT, (req, res) => {
+server.post("/api/user-written-blogs-count", verifyJWT, (req, res) => {
     let user_id = req.user
 
     let { draft, query } = req.body
@@ -870,7 +870,7 @@ server.post("/user-written-blogs-count", verifyJWT, (req, res) => {
     })
 })
 
-server.post("/delete-blog", verifyJWT, (req, res) => {
+server.post("/api/delete-blog", verifyJWT, (req, res) => {
 
     let user_id = req.user
     let { blog_id } = req.body
@@ -894,6 +894,10 @@ server.post("/delete-blog", verifyJWT, (req, res) => {
         return res.status(500).json({ error: err.message })
     })
 
+})
+
+server.get("/", (req, res) => {
+    res.json({ message: "Pen n Pixel API"})
 })
 
 server.listen(PORT, () => {
