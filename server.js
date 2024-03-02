@@ -896,7 +896,7 @@ server.post("/api/delete-blog", verifyJWT, (req, res) => {
 
 })
 
-server.get("/", (req, res) => {
+server.get("/test", (req, res) => {
     res.json({ message: "Pen n Pixel API"})
 })
 
