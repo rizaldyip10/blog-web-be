@@ -34,8 +34,8 @@ mongoose.connect(process.env.DB_LOCATION, {
 // Setting Up AWS S3 Bucket
 const s3 = new AWS.S3({
     region: 'ap-southeast-1',
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_TOKEN,
+    secretAccessKey: process.env.AWS_SECRET_TOKEN,
     signatureVersion: 'v4'
 })
 
@@ -61,7 +61,7 @@ const verifyJWT = (req, res, next) => {
         return res.status(401).json({ error: "No access token" })
     }
 
-    jwt.verify(token, process.env.SECRET_ACCESS_KEY, (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
         if (err) {
             return res.status(403).json({ error: "Access token is invalid"})
         }
@@ -72,7 +72,7 @@ const verifyJWT = (req, res, next) => {
 }
 
 const formatDataToSend = (user) => {
-    const access_token = jwt.sign({ id: user._id }, process.env.SECRET_ACCESS_KEY)
+    const access_token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN)
     return {
         access_token,
         profile_img: user.personal_info.profile_img,
