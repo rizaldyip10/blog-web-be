@@ -15,7 +15,7 @@ const Notification = require("./Schema/Notification")
 const Comment = require("./Schema/Comment")
 
 const server = express()
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey)
