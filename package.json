@@ -7,7 +7,8 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "nodemon .",
+    "start": "node .",
+    "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
