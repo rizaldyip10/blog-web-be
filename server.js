@@ -908,7 +908,7 @@ server.get("/", (req, res) => {
     res.json({ message: "Pen n Pixel API"})
 })
 
-connectDB.then(() => {
+connectDB().then(() => {
     server.listen(PORT, () => {
         console.log('listening on port --> ' + PORT)
     })
