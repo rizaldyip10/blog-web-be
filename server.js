@@ -1,5 +1,4 @@
 const express = require("express")
-const { MongoClient } = require("mongodb")
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -18,9 +17,6 @@ const Comment = require("./Schema/Comment")
 const server = express()
 const PORT = process.env.PORT || 8000
 
-const uri = process.env.DB_LOCATION
-const client = new MongoClient(uri)
-
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey)
 })
@@ -31,16 +27,17 @@ let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 server.use(express.json())
 server.use(cors())
 
-// const connectDB = async () => {
-//     try {
-//         const conn = mongoose.connect(process.env.DB_LOCATION, {
-//             autoIndex: true
-//         })
-//         console.log("Connected to mongoose");
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+const connectDB = async () => {
+    try {
+        const conn = mongoose.connect(process.env.DB_LOCATION, {
+            useNewUrlParser: true,
+            autoIndex: true
+        })
+        console.log("Connected to mongoose");
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // Setting Up AWS S3 Bucket
 const s3 = new AWS.S3({
@@ -911,12 +908,7 @@ server.get("/", (req, res) => {
     res.json({ message: "Pen n Pixel API"})
 })
 
-client.connect(err => {
-    if (err) {
-        console.log(err);
-        return false
-    }
-    
+connectDB.then(() => {
     server.listen(PORT, () => {
         console.log('listening on port --> ' + PORT)
     })
