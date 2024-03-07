@@ -27,9 +27,16 @@ let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 server.use(express.json())
 server.use(cors())
 
-mongoose.connect(process.env.DB_LOCATION, {
-    autoIndex: true
-})
+const connectDB = async () => {
+    try {
+        const conn = mongoose.connect(process.env.DB_LOCATION, {
+            autoIndex: true
+        })
+        console.log("Connected to mongoose");
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // Setting Up AWS S3 Bucket
 const s3 = new AWS.S3({
@@ -900,6 +907,8 @@ server.get("/", (req, res) => {
     res.json({ message: "Pen n Pixel API"})
 })
 
-server.listen(PORT, () => {
-    console.log('listening on port --> ' + PORT)
+connectDB().then(() => {
+    server.listen(PORT, () => {
+        console.log('listening on port --> ' + PORT)
+    })
 })
