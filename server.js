@@ -393,7 +393,7 @@ server.post("/api/get-profile", (req, res) => {
     let { username } = req.body
 
     User.findOne({ "personal_info.username": username })
-    .select("-personal_info.password -google_auth -updatedAt -blogs")
+    .select("-personal_info.password -updatedAt -blogs")
     .then(user => {
         return res.status(200).json(user)
     })
@@ -418,7 +418,7 @@ server.post("/api/update-profile-img", verifyJWT, (req, res) => {
 })
 
 server.post("/api/update-profile", verifyJWT, (req, res) => {
-    let { username, bio, social_links } = req.body
+    let { fullname, email, username, bio, social_links } = req.body
 
     let bioLimit = 150
 
@@ -450,6 +450,8 @@ server.post("/api/update-profile", verifyJWT, (req, res) => {
     let updateObj = {
         "personal_info.username": username,
         "personal_info.bio": bio,
+        "personal_info.fullname": fullname,
+        "personal_info.email": email,
         social_links
     }
 
@@ -902,6 +904,113 @@ server.post("/api/delete-blog", verifyJWT, (req, res) => {
         return res.status(500).json({ error: err.message })
     })
 
+})
+
+server.get('/api/employeeDetail', (req, res) => {
+    try {
+        const result = [
+            {
+                name: "Natasha Kelvin",
+                position: "Managing Director",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/htP7dSpn/Photo-5.png'
+            },
+            {
+                name: "David Simpsons",
+                position: "Designer",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/rp7d35cy/Photo-4.png'
+            },
+            {
+                name: "Madeleine Grant",
+                position: "Marketing Specialist",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/Y9g4Hjq6/Photo-6.png'
+            },
+            {
+                name: "Jonathan Coleman",
+                position: "Managing Director",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/fWc3q3PZ/Photo.jpg'
+            },
+            {
+                name: "Wanda Forsyth",
+                position: "Designer",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/dtJhbsMC/Photo-1.jpg'
+            },
+            {
+                name: "Austin Randal",
+                position: "IT Specialist",
+                socialLinks: [
+                    {
+                        instagram: "instagram.com"
+                    },
+                    {
+                        facebook: "facebook.com"
+                    },
+                    {
+                        twitter: "x.com"
+                    }
+                ],
+                photoURL: 'https://i.postimg.cc/VkV50XJ9/Photo-2.jpg'
+            },
+        ]
+
+        res.status(200).send(result)
+    } catch (error) {
+        res.status(500).send(error)
+    }
 })
 
 server.get("/", (req, res) => {
