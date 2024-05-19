@@ -1007,9 +1007,9 @@ server.get('/api/employeeDetail', (req, res) => {
             },
         ]
 
-        res.status(200).send(result)
+        res.status(200).json(result)
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).json(error)
     }
 })
 
