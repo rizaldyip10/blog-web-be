@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cors = require("cors")
 const admin = require("firebase-admin")
-const serviceAccountKey = require("./blog-website-683e3-firebase-adminsdk-x7f0j-78a7556bbf.json")
 const AWS = require("aws-sdk")
 const { getAuth } = require("firebase-admin/auth")
 require('dotenv').config()
@@ -18,7 +17,7 @@ const server = express()
 const PORT = process.env.PORT || 8000
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountKey)
+    credential: admin.credential.cert(process.env.FIREBASE_CONFIG)
 })
 
 let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
