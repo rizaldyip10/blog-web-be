@@ -923,7 +923,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/htP7dSpn/Photo-5.png'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/eojwwjwgwwwgrlcrn2ow'
             },
             {
                 name: "David Simpsons",
@@ -939,7 +939,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/rp7d35cy/Photo-4.png'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/nkwlyywrcqel6g9ijcz6'
             },
             {
                 name: "Madeleine Grant",
@@ -955,7 +955,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/Y9g4Hjq6/Photo-6.png'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/kmeawy20ilt2fl5wsulc'
             },
             {
                 name: "Jonathan Coleman",
@@ -971,7 +971,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/fWc3q3PZ/Photo.jpg'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/v6ghkb2gqrw2ga9htvca'
             },
             {
                 name: "Wanda Forsyth",
@@ -987,7 +987,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/dtJhbsMC/Photo-1.jpg'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/k4rlzerepcsjlogxoxui'
             },
             {
                 name: "Austin Randal",
@@ -1003,7 +1003,7 @@ server.get('/api/employeeDetail', (req, res) => {
                         twitter: "x.com"
                     }
                 ],
-                photoURL: 'https://i.postimg.cc/VkV50XJ9/Photo-2.jpg'
+                photoURL: 'https://res.cloudinary.com/dnbi2dgvo/image/upload/f_auto,q_auto/lqlpjlfv3dqf9w8ritrc'
             },
         ]
 
